@@ -1,0 +1,479 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Hacia la meta de 60 ingresos · SHC</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="deck.css">
+<style>
+:root{
+  --bg:#fbfaf6; --ink:#12352a; --dim:#5d6c65; --hair:#dbe3de;
+  --accent:#b8963e; --green:#1a7f5a; --deep:#0b3d2e; --mint:#edf3ef; --cream:#f5efdf;
+  --red:#b4443a;
+  --head:"Montserrat",-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+}
+body{transition:background .5s}
+body.darkbg{background:var(--deep)}
+.slide{position:relative;padding:0 7vw}
+h1,h2,.big,.quote,.task{font-family:var(--head);color:var(--deep)}
+h2{font-size:5.2vh}
+.kicker{margin-bottom:2.6vh;color:var(--accent);font-family:var(--head)}
+.kicker .dot{background:var(--green)}
+.lede{max-width:60ch;margin-top:2.4vh;font-size:2.3vh}
+
+/* marca */
+.brand{position:absolute;top:4.5vh;left:7vw;font-family:var(--head);font-size:1.5vh;letter-spacing:.08em;color:var(--deep);font-weight:800}
+.brand span{color:var(--accent);font-weight:500}
+.slide.dark .brand{color:#fff}
+.brand em{font-style:normal;font-weight:500;color:var(--dim);letter-spacing:.04em;margin:0 .6vw;text-transform:none}
+.slide.dark .brand em{color:#fff}
+.duo-sign{display:flex;gap:4vw;margin-top:5vh}
+
+/* slides oscuras */
+.slide.dark{color:#fff}
+.slide.dark h1,.slide.dark h2,.slide.dark .big{color:#fff}
+.slide.dark .lede,.slide.dark .after{color:#fff}
+.slide.dark .kicker{color:var(--accent)}
+
+/* números grandes */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:2vw;margin-top:4.5vh}
+.stats>div{background:var(--mint);border-radius:1.4vh;padding:2.6vh 1.6vw}
+.stats b{display:block;font-family:var(--head);font-size:4.4vh;font-weight:800;color:var(--deep);letter-spacing:-.02em}
+.stats span{display:block;font-size:1.75vh;color:var(--dim);margin-top:.8vh;line-height:1.4}
+.stats .hot{background:var(--deep)}
+.stats .hot b{color:var(--accent)} .stats .hot span{color:#fff}
+
+/* tabla */
+.tbl{width:100%;border-collapse:separate;border-spacing:0;margin-top:3.6vh;font-size:2vh;border-radius:1.2vh;overflow:hidden;border:1px solid var(--hair)}
+.tbl th{background:var(--deep);color:#fff;text-align:left;font-family:var(--head);font-weight:700;font-size:1.7vh;padding:1.7vh 1.2vw}
+.tbl td{padding:1.55vh 1.2vw;border-top:1px solid var(--hair);background:#fff}
+.tbl tr:nth-child(even) td{background:var(--mint)}
+.tbl .r{text-align:right;font-variant-numeric:tabular-nums}
+.tbl tr.tot td{background:var(--cream);font-weight:700}
+.tbl .g{color:var(--green);font-weight:700}
+.tbl .n{color:var(--accent);font-weight:700;width:3ch}
+.note{font-size:1.55vh;color:var(--dim);margin-top:1.6vh;line-height:1.5}
+
+/* flujo del pipeline */
+.flow{display:flex;align-items:stretch;gap:2.6vw;margin-top:6vh}
+.flow>div{flex:1;border-radius:1.4vh;padding:2.8vh 1.4vw;background:var(--mint);position:relative}
+.flow>div:not(:last-child)::after{content:"→";position:absolute;right:-1.3vw;top:50%;transform:translate(50%,-50%);color:var(--accent);font-size:3.4vh;font-weight:700}
+.flow small{display:block;font-size:1.45vh;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--green)}
+.flow h3{font-family:var(--head);font-size:2.5vh;margin-top:1.2vh;color:var(--deep)}
+.flow p{font-size:1.75vh;color:var(--dim);margin-top:1vh;line-height:1.45}
+.flow .bad{background:#fff;border:2px solid var(--red)}
+.flow .bad small{color:var(--red)}
+.flow .goal{background:var(--deep)} .flow .goal h3,.flow .goal p{color:#fff} .flow .goal small{color:var(--accent)}
+
+/* pasos en grilla */
+.grid6{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2.6vh 2vw;margin-top:4.5vh}
+.grid6>div{border-top:3px solid var(--green);padding-top:2vh}
+.grid6 i{font-style:normal;font-family:var(--head);font-weight:800;color:var(--accent);font-size:2.2vh}
+.grid6 h3{font-family:var(--head);font-size:2.3vh;color:var(--deep);margin:.8vh 0}
+.grid6 p{font-size:1.8vh;color:var(--dim);line-height:1.5}
+
+/* recuadro */
+.box{background:var(--mint);border-left:.6vh solid var(--accent);border-radius:0 1.2vh 1.2vh 0;padding:3vh 2.4vw;margin-top:4vh;max-width:78ch}
+.box h3{font-family:var(--head);font-size:2.4vh;color:var(--deep);margin-bottom:1.2vh}
+.box p{font-size:2.05vh;line-height:1.55;color:var(--ink)}
+.box small{display:block;font-size:1.5vh;color:var(--dim);margin-top:1.2vh;font-style:italic}
+
+/* duelo persona vs agente */
+.duo{display:grid;grid-template-columns:1fr 1fr;margin-top:5vh;border-radius:1.6vh;overflow:hidden;border:1px solid var(--hair)}
+.duo>div{padding:5vh 3vw;text-align:center}
+.duo>div:first-child{background:var(--mint)}
+.duo>div:last-child{background:var(--deep);color:#fff}
+.duo small{display:block;font-family:var(--head);font-size:1.6vh;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+.duo b{display:block;font-family:var(--head);font-size:9vh;font-weight:800;letter-spacing:-.03em;margin:1.6vh 0;color:var(--deep)}
+.duo>div:last-child b{color:var(--accent)}
+.duo span{font-size:1.9vh;color:var(--dim)} .duo>div:last-child span{color:#fff}
+
+/* ahorros */
+.save{display:grid;grid-template-columns:1fr 1fr;gap:1.6vw;margin-top:2.6vh}
+.save>div{background:var(--cream);border-radius:1.2vh;padding:2vh 1.6vw;display:flex;align-items:baseline;gap:1.2vw}
+.save b{font-family:var(--head);font-size:3.6vh;font-weight:800;color:var(--deep);white-space:nowrap}
+.save span{font-size:1.65vh;color:var(--dim);line-height:1.4}
+
+/* tres componentes */
+.three{display:grid;grid-template-columns:repeat(3,1fr);gap:1.8vw;margin-top:5vh}
+.three>div{border:1px solid var(--hair);border-radius:1.4vh;padding:3.4vh 1.8vw;background:#fff}
+.three>div:first-child{background:var(--deep);border-color:var(--deep);color:#fff}
+.three small{display:block;font-family:var(--head);font-size:1.5vh;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--green)}
+.three>div:first-child small{color:var(--accent)}
+.three h3{font-family:var(--head);font-size:2.4vh;margin:1.2vh 0 2vh;color:var(--deep)}
+.three>div:first-child h3{color:#fff}
+.three b{display:block;font-family:var(--head);font-size:5vh;font-weight:800;color:var(--deep);letter-spacing:-.02em}
+.three>div:first-child b{color:var(--accent)}
+.three p{font-size:1.75vh;line-height:1.5;color:var(--dim);margin-top:1.6vh}
+.three>div:first-child p{color:#fff}
+
+/* línea de tiempo */
+.tl{display:grid;grid-template-columns:repeat(4,1fr);gap:1.4vw;margin-top:5vh}
+.tl>div{padding-top:3vh;position:relative;border-top:4px solid var(--hair)}
+.tl>div::before{content:"";position:absolute;top:-1.2vh;left:0;width:2vh;height:2vh;border-radius:50%;background:var(--green);border:.5vh solid var(--bg)}
+.tl>div.last{border-top-style:dashed}
+.tl>div.last::before{background:var(--accent)}
+.tl small{font-family:var(--head);font-size:1.6vh;font-weight:800;color:var(--accent);letter-spacing:.06em;text-transform:uppercase}
+.tl h3{font-family:var(--head);font-size:2.5vh;color:var(--deep);margin:1vh 0}
+.tl p{font-size:1.75vh;line-height:1.5;color:var(--dim)}
+
+/* opciones de pago */
+.opt{display:grid;grid-template-columns:1fr 1.6fr;gap:1.8vw;margin-top:3.6vh;align-items:start}
+.card{border:1px solid var(--hair);border-radius:1.4vh;padding:3vh 1.8vw;background:#fff}
+.card small{font-family:var(--head);font-size:1.5vh;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--green)}
+.card h3{font-family:var(--head);font-size:2.4vh;color:var(--deep);margin:1vh 0 1.6vh}
+.card b.p{display:block;font-family:var(--head);font-size:5vh;font-weight:800;color:var(--deep)}
+.card p{font-size:1.75vh;color:var(--dim);line-height:1.5;margin-top:1.2vh}
+.card .tbl{margin-top:1.6vh;font-size:1.7vh}
+.card .tbl th{font-size:1.45vh;padding:1.2vh .8vw}
+.card .tbl td{padding:1.15vh .8vw}
+
+/* listas simples */
+.ls{margin-top:3vh}
+.ls li{list-style:none;padding:1.6vh 0 1.6vh 2.4vw;border-top:1px solid var(--hair);font-size:2vh;line-height:1.5;position:relative}
+.ls li::before{content:"";position:absolute;left:.4vw;top:2.5vh;width:.9vh;height:.9vh;background:var(--accent);border-radius:.2vh}
+.ls li b{color:var(--deep)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:4vw;margin-top:3vh}
+.two h3{font-family:var(--head);font-size:2.4vh;color:var(--green);margin-bottom:.4vh}
+
+/* cierre */
+.next{margin-top:5vh;display:grid;grid-template-columns:repeat(3,1fr);gap:1.6vw}
+.next>div{border:1px solid rgba(255,255,255,.25);border-radius:1.4vh;padding:3vh 1.6vw}
+.next b{display:block;font-family:var(--head);font-size:6vh;font-weight:800;color:var(--accent)}
+.next span{font-size:1.9vh;color:#fff;line-height:1.45}
+.sign{margin-top:5vh;font-size:1.9vh;color:#fff}
+.sign b{font-family:var(--head);color:var(--accent)}
+
+.big span{color:var(--green)}
+.slide.dark .big span{color:var(--accent)}
+#bar{background:var(--accent)}
+</style>
+</head>
+<body>
+<style>
+/* v2 · extras */
+.wa{background:#e9f3ec;border-radius:1.6vh;padding:2.4vh 1.8vw;max-width:46ch;font-size:1.75vh;line-height:1.55;color:var(--ink);box-shadow:0 1vh 3vh rgba(11,61,46,.12)}
+.wa .hd{font-family:var(--head);font-weight:800;color:var(--deep);font-size:1.9vh;margin-bottom:1vh}
+.wa .row{display:flex;justify-content:space-between;gap:2vw;padding:.45vh 0;border-bottom:1px dashed var(--hair)}
+.wa .row b{font-family:var(--head);color:var(--deep)}
+.wa .warn{color:var(--red);font-weight:700}
+.wa .tm{text-align:right;font-size:1.35vh;color:var(--dim);margin-top:.8vh}
+.side{display:grid;grid-template-columns:1.1fr 1fr;gap:4vw;align-items:center;margin-top:3vh}
+.tag{display:inline-block;font-family:var(--head);font-size:1.35vh;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.5vh .9vw;border-radius:.6vh;background:var(--cream);color:var(--accent);margin-left:.8vw;vertical-align:middle}
+.tbl td.h{color:var(--red);font-weight:700}
+.grid7{grid-template-columns:repeat(4,1fr)}
+</style>
+
+<div id="deck">
+
+<!-- 1 · Portada -->
+<section class="slide dark">
+  <div class="brand">FORTUM <span>CONSULTING</span> <em>en colaboración con</em> AL <span>CONSULTING</span></div>
+  <div class="kicker"><span class="dot"></span>Propuesta actualizada · SHC Consultores · Noviembre 2026</div>
+  <h1>Hacia la meta de<br>60 ingresos al mes</h1>
+  <p class="lede">Recuperar candidatos que hoy se pierden, ver el proceso todos los días y automatizar los Filtros de Seguridad, en dos etapas. Ajustada con lo que conversamos el lunes 23.</p>
+  <p class="lede" style="margin-top:4vh;font-weight:600">Un proyecto de Fortum Consulting en colaboración con AL Consulting.</p>
+</section>
+
+<!-- 2 · Punto de partida -->
+<section class="slide">
+  <div class="brand">FORTUM <span>CONSULTING</span> <em>en colaboración con</em> AL <span>CONSULTING</span></div>
+  <div class="kicker"><span class="dot"></span>Punto de partida</div>
+  <h2>De 23 a 39 ingresos en un mes.<br>Faltan unos 20 más.</h2>
+  <div class="stats">
+    <div><b>23</b><span>ingresos en octubre, el primer mes con 54 ciudades</span></div>
+    <div><b>39</b><span>ingresos en noviembre, con el bot ajustado y más inversión</span></div>
+    <div class="hot"><b>~60</b><span>la meta del mes que viene: 40 + los 17 que faltaron</span></div>
+    <div><b>~20</b><span>ingresos más por mes, sin sumar personas al equipo</span></div>
+  </div>
+  <p class="note">La meta de ~60 ingresos es un objetivo de SHC, no una garantía de resultado: depende también de la inversión en anuncios y de que el equipo mueva las tarjetas en SHARP. Meta a confirmar con SHC.</p>
+</section>
+
+<!-- 3 · Dónde se pierden -->
+<section class="slide">
+  <div class="brand">FORTUM <span>CONSULTING</span> <em>en colaboración con</em> AL <span>CONSULTING</span></div>
+  <div class="kicker"><span class="dot"></span>Dónde se pierden candidatos hoy</div>
+  <h2>Parte de esos 20 ya está<br>dentro de SHARP</h2>
+  <table class="tbl">
+    <tr><th>Dónde</th><th class="r">Cuántos</th><th>Qué pasa</th></tr>
+    <tr><td><b>Precalificados sin CV</b></td><td class="r">323</td><td>Respondieron el prefiltro pero nunca mandaron la hoja de vida</td></tr>
+    <tr><td><b>Coactiva respondida con “Sí” con tilde</b></td><td class="r">13</td><td>No pasaron a “A Evaluar” por un ajuste del prefiltro, ya corregido sin costo. El resto ya lo había gestionado el equipo</td></tr>
+    <tr><td><b>Etapa Filtros de Seguridad</b></td><td class="r">hasta 517</td><td>Mezcla de procesados, ingresados y posibles aptos sin llamar</td></tr>
+    <tr><td><b>CV sin cédula</b></td><td class="r">~25%</td><td>Hoy se consigue llamando uno por uno</td></tr>
+  </table>
+  <p class="note">Si se recupera un tercio de los primeros 336, a la tasa actual de CV a ingreso, son varios ingresos extra sin gastar más en anuncios. El análisis de esta semana da el número real.</p>
+</section>
+
+<!-- 4 · El plan en tres frentes -->
+<section class="slide">
+  <div class="brand">FORTUM <span>CONSULTING</span> <em>en colaboración con</em> AL <span>CONSULTING</span></div>
+  <div class="kicker"><span class="dot"></span>El plan · etapa 1, diciembre a febrero</div>
+  <h2>Un programa de 3 meses<br>para llegar a la meta</h2>
+  <div class="three">
+    <div><small>1 · Esta semana</small><h3>Rescate</h3><b>Cortesía</b><p>Corrección del prefiltro, recontacto a los ~330 sin CV y análisis de Filtros de Seguridad con la IA de la plataforma. Valor de referencia USD 500, sin costo y solo esta semana.</p></div>
+    <div><small>2 · Desde diciembre</small><h3>Reporte diario + reunión semanal</h3><b>1 h / semana</b><p>El reporte de las 19 h muestra dónde se frena el proceso. Cada semana lo revisamos 1 hora con el equipo y ajustamos lo que haga falta.</p></div>
+    <div><small>3 · Diciembre</small><h3>Agente de Filtros</h3><b>Desde el OK</b><p>El agente consulta las páginas del Estado, arma el informe y sugiere. El consultor revisa y decide.</p></div>
+  </div>
+</section>
+
+<!-- 5 · Rescate -->
+<section class="slide">
+  <div class="brand">FORTUM <span>CONSULTING</span> <em>en colaboración con</em> AL <span>CONSULTING</span></div>
+  <div class="kicker"><span class="dot"></span>Frente 1 · Rescate <span class="tag">cortesía · valor ref. USD 500</span></div>
+  <h2>Primero, los que ya están adentro</h2>
+  <ul class="ls" style="max-width:80ch">
+    <li><b>Corrección del prefiltro:</b> hecha el 23 de noviembre. Los candidatos con “Sí” en coactiva que nadie revisó se pasan a “A Evaluar” uno por uno.</li>
+    <li><b>Recontacto a los precalificados sin CV (~330):</b> un WhatsApp corto pidiendo la hoja de vida, en tandas para cuidar el número.</li>
+    <li><b>Análisis de Filtros de Seguridad:</b> la IA de la plataforma revisa las conversaciones y separa quién ya fue procesado, quién ingresó y quién quedó sin llamar.</li>
+    <li><b>Lista de CV sin cédula:</b> nombres y apellidos listos para completar el dato.</li>
+  </ul>
+  <p class="note">Resultado: un informe con los candidatos recuperables, para que Marco y Diana los trabajen esta misma semana. Es un gesto puntual de esta semana, no un servicio que se repite.</p>
+</section>
+
+<!-- 6 · Reporte diario -->
+<section class="slide">
+  <div class="brand">FORTUM <span>CONSULTING</span> <em>en colaboración con</em> AL <span>CONSULTING</span></div>
+  <div class="kicker"><span class="dot"></span>Frente 2 · Reporte diario</div>
+  <h2>Cada día a las 19 h,<br>el proceso en un mensaje</h2>
+  <div class="side">
+    <ul class="ls">
+      <li>Llega por WhatsApp a Sahira, Marco y Diana.</li>
+      <li>Muestra dónde se frena el proceso <b>ese mismo día</b>, no a fin de mes.</li>
+      <li>Avisa quién lleva más de 48 h sin moverse, por consultor.</li>
+      <li>Arma solo el informe semanal que hoy se prepara a mano.</li>
+      <li><b>Condición:</b> que el equipo mueva las tarjetas en SHARP. El reporte también lo muestra.</li>
+      <li>La reunión semanal de 1 hora la lidera Andrés Linares (AL Consulting).</li>
+    </ul>
+    <div class="wa">
+      <div class="hd">Reporte SHC · lunes 1 dic</div>
+      <div class="row"><span>Entraron hoy</span><b>42</b></div>
+      <div class="row"><span>Mandaron CV</span><b>18</b></div>
+      <div class="row"><span>Pasaron el prefiltro</span><b>12</b></div>
+      <div class="row"><span>Filtros de Seguridad</span><b>9 · 7 aptos, 2 descartados</b></div>
+      <div class="row"><span>Ingresos del mes</span><b>4 de 60</b></div>
+      <div class="row warn"><span>Más de 48 h sin moverse</span><span>6 (Marco 2 · Diana 4)</span></div>
+      <div class="row"><span>Sin cédula</span><b>5</b></div>
+      <div class="tm">19:00 · ejemplo ilustrativo</div>
+    </div>
+  </div>
+</section>
+
+<!-- 7 · Las 7 consultas -->
+<section class="slide">
+  <div class="brand">FORTUM <span>CONSULTING</span> <em>en colaboración con</em> AL <span>CONSULTING</span></div>
+  <div class="kicker"><span class="dot"></span>Frente 3 · Agente de Filtros de Seguridad</div>
+  <h2>Las consultas, hechas por el agente</h2>
+  <table class="tbl" style="margin-top:2.6vh">
+    <tr><th>#</th><th>Fuente oficial</th><th>Qué se verifica</th><th>Clic humano</th><th>Qué sugiere el agente</th></tr>
+    <tr><td class="n">0</td><td><b>Cédula por nombre</b></td><td>Solo si el CV no trae cédula: busca con 2 nombres y 2 apellidos</td><td>—</td><td>Si no aparece: WhatsApp “para completar tu hoja de vida”</td></tr>
+    <tr><td class="n">1</td><td><b>SUPA</b></td><td>Pensiones alimenticias</td><td>Según página</td><td class="g">Descartar si la deuda supera USD 1.500; si hay deuda menor, revisar</td></tr>
+    <tr><td class="n">2</td><td><b>Fiscalía · Actos</b></td><td>Actos administrativos</td><td>Según página</td><td>Lo que encontró y si amerita revisar</td></tr>
+    <tr><td class="n">3</td><td><b>Fiscalía · Delitos</b></td><td>Noticias del delito y denuncias</td><td>Según página</td><td>Lo que encontró y si amerita revisar</td></tr>
+    <tr><td class="n">4</td><td><b>Procesos judiciales</b></td><td>E-SATJE, por cédula</td><td>Según página</td><td>Lo que encontró y si amerita revisar</td></tr>
+    <tr><td class="n">5</td><td><b>Antecedentes penales</b></td><td>Ministerio del Interior</td><td>Según página</td><td>Lo que encontró y si amerita revisar</td></tr>
+    <tr><td class="n">6</td><td><b>Título de bachiller</b></td><td>Ministerio de Educación</td><td>Código</td><td class="g">Si dijo que es bachiller y no figura: revisar</td></tr>
+  </table>
+  <p class="note">Tres páginas piden “Soy humano” y la de bachiller pide un código; lo confirmamos con los videos de Diana. <b>En todos los casos decide el consultor.</b> El agente solo sugiere.</p>
+</section>
+
+<!-- 8 · Cómo funciona -->
+<section class="slide">
+  <div class="brand">FORTUM <span>CONSULTING</span> <em>en colaboración con</em> AL <span>CONSULTING</span></div>
+  <div class="kicker"><span class="dot"></span>Cómo funciona, de punta a punta</div>
+  <h2>El agente consulta y arma el informe.<br>El consultor decide.</h2>
+  <div class="grid6">
+    <div><i>01</i><h3>Toma al candidato</h3><p>Apenas entra a “Filtros de Seguridad”. Si no hay cédula, la busca por nombre.</p></div>
+    <div><i>02</i><h3>Consulta las páginas</h3><p>Desde un servidor en Ecuador, de a poco y en distintos horarios, para que no bloqueen la IP.</p></div>
+    <div><i>03</i><h3>El consultor da el clic</h3><p>Recibe por WhatsApp, en tandas, un link con el nombre del candidato. Lo toca y listo.</p></div>
+    <div><i>04</i><h3>Reintenta si se cae</h3><p>Si una página del Estado no responde, vuelve a probar a los 15 y a los 30 minutos, solo.</p></div>
+    <div><i>05</i><h3>Arma el informe</h3><p>Capturas con fecha y hora, en una carpeta de Drive por candidato.</p></div>
+    <div><i>06</i><h3>Lo deja en la ficha</h3><p>El informe se abre desde la ficha del candidato en SHARP, con un clic. Ahí quedan también la cédula y la sugerencia. El consultor revisa y mueve la tarjeta a mano.</p></div>
+  </div>
+</section>
+
+<!-- 9 · Por qué asistido -->
+<section class="slide">
+  <div class="brand">FORTUM <span>CONSULTING</span> <em>en colaboración con</em> AL <span>CONSULTING</span></div>
+  <div class="kicker"><span class="dot"></span>¿Por qué “asistido”?</div>
+  <div class="quote" style="max-width:30ch">Todo lo revisa una persona<br>hasta que el agente esté ajustado.</div>
+  <div class="box">
+    <h3>La forma segura, legal y estable</h3>
+    <p>Los “Soy humano” y el código del bachiller los puso el Estado a propósito. Saltarlos con un programa sería evadir un control oficial. Y consultar mucho de golpe ya les costó un bloqueo de IP.</p>
+  </div>
+  <div class="box" style="border-left-color:var(--green)">
+    <h3>Primero sugiere, después decide</h3>
+    <p>Hasta febrero, el agente solo sugiere y la decisión es siempre manual. Medimos cuántas veces coinciden. En febrero, si funciona bien, pasamos a la automatización completa: el agente mueve solo los casos claros y los raros siguen pasando por una persona.</p>
+  </div>
+</section>
+
+<!-- 10 · Impacto -->
+<section class="slide">
+  <div class="brand">FORTUM <span>CONSULTING</span> <em>en colaboración con</em> AL <span>CONSULTING</span></div>
+  <div class="kicker"><span class="dot"></span>El impacto</div>
+  <h2>Etapa 1: de 7 minutos a 2 por candidato</h2>
+  <p class="lede" style="margin-top:1.4vh">Tiempo cronometrado por Diana, con informe y sin páginas colgadas. Los 2 minutos son la revisión del consultor. Con páginas colgadas, la diferencia es mayor.</p>
+  <table class="tbl">
+    <tr><th>Mes</th><th class="r">Candidatos</th><th class="r">Horas a mano</th><th class="r">Horas con agente</th></tr>
+    <tr><td>Agosto</td><td class="r">131</td><td class="r">15 h</td><td class="r g">4,4 h</td></tr>
+    <tr><td>Septiembre</td><td class="r">192</td><td class="r">22 h</td><td class="r g">6,4 h</td></tr>
+    <tr><td>Octubre</td><td class="r">109</td><td class="r">13 h</td><td class="r g">3,6 h</td></tr>
+    <tr class="tot"><td>Ritmo de noviembre</td><td class="r">~270</td><td class="r">~32 h</td><td class="r g">~9 h</td></tr>
+  </table>
+  <p class="note">Unas 23 horas al mes que el equipo pasa a usar en llamar y entrevistar. Para llegar a 60 ingresos, el volumen sube y la diferencia crece. En la etapa 2, con la decisión automática en los casos claros, baja a unos 1,5 minutos.</p>
+</section>
+
+<!-- 10b · Dos etapas -->
+<section class="slide">
+  <div class="brand">FORTUM <span>CONSULTING</span> <em>en colaboración con</em> AL <span>CONSULTING</span></div>
+  <div class="kicker"><span class="dot"></span>Qué cambia frente a la propuesta anterior</div>
+  <h2>Primero, lo que acerca a la meta.<br>Después, la automatización completa.</h2>
+  <table class="tbl" style="margin-top:2.6vh">
+    <tr><th></th><th>Propuesta anterior<br>USD 3.000, todo junto</th><th>Etapa 1 · dic a feb<br>USD 2.000</th><th>Etapa 2 · desde febrero<br>USD 2.000, si continúan</th></tr>
+    <tr><td><b>Consultas al Estado + informe</b></td><td>✓</td><td class="g">✓</td><td>✓</td></tr>
+    <tr><td><b>Búsqueda de cédula por nombre</b></td><td>—</td><td class="g">✓ nuevo</td><td>✓</td></tr>
+    <tr><td><b>Reporte diario de las 19 h</b></td><td>—</td><td class="g">✓ nuevo</td><td>✓</td></tr>
+    <tr><td><b>Reunión semanal de 1 h hacia la meta</b></td><td>—</td><td class="g">✓ nuevo</td><td>✓</td></tr>
+    <tr><td><b>Quién decide</b></td><td>El agente</td><td class="g">El consultor, con la sugerencia del agente</td><td>El agente en los casos claros</td></tr>
+    <tr><td><b>Mover tarjetas solo</b></td><td>✓</td><td>—</td><td>✓</td></tr>
+    <tr><td><b>Ficha de consulta del candidato</b></td><td>—</td><td>—</td><td>✓</td></tr>
+  </table>
+  <p class="note">Total del proyecto: USD 4.000 (etapa 1 + etapa 2), con más alcance que la propuesta anterior. Si en febrero los resultados lo justifican y deciden continuar, la etapa 2 (USD 2.000) termina todo el proceso: el agente decide solo los casos claros, mueve las tarjetas y deja la ficha de consulta del candidato. Si no continúan, el proyecto queda en la etapa 1.</p>
+</section>
+
+<!-- 10c · Cuánto vale cada componente -->
+<section class="slide">
+  <div class="brand">FORTUM <span>CONSULTING</span> <em>en colaboración con</em> AL <span>CONSULTING</span></div>
+  <div class="kicker"><span class="dot"></span>Cuánto vale cada componente</div>
+  <h2>El valor de lo que incluye<br>la etapa 1</h2>
+  <table class="tbl" style="margin-top:2.6vh">
+    <tr><th>Componente</th><th class="r">Valor de mercado estimado</th></tr>
+    <tr><td><b>Agente de filtros</b> (7 consultas, cédula por nombre, servidor en Ecuador, informe en Drive enlazado en SHARP)</td><td class="r">USD 2.500–3.500</td></tr>
+    <tr><td><b>Reporte diario automático</b> por WhatsApp (resumen del día, alertas de más de 48 h por consultor, informe semanal automático)</td><td class="r">USD 800–1.200</td></tr>
+    <tr><td><b>Reunión semanal de 1 hora</b> × 12 semanas (consultoría de optimización)</td><td class="r">USD 600–1.000</td></tr>
+    <tr><td><b>Rescate</b> (corrección del prefiltro, recontacto a ~330, análisis con IA, lista sin cédula) <span class="tag">cortesía</span></td><td class="r">USD 300–600</td></tr>
+    <tr class="tot"><td>Total estimado</td><td class="r">USD 4.200–6.300</td></tr>
+  </table>
+  <p class="note">Valores de referencia de mercado para proyectos de automatización similares en Latinoamérica; son una estimación, no una cotización. La inversión de la etapa 1 es de USD 2.000.</p>
+</section>
+
+<!-- 11 · Inversión -->
+<section class="slide">
+  <div class="brand">FORTUM <span>CONSULTING</span> <em>en colaboración con</em> AL <span>CONSULTING</span></div>
+  <div class="kicker"><span class="dot"></span>Inversión · etapa 1</div>
+  <h2>USD 2.000, en tres cuotas</h2>
+  <div class="opt">
+    <div class="card">
+      <small>Etapa 1 · diciembre a febrero</small><h3>Tres cuotas de USD 667</h3>
+      <b class="p">USD 2.000</b>
+      <p>Diciembre, enero y febrero. Incluye el agente, el reporte diario y la reunión semanal de 1 hora. El rescate de esta semana va como cortesía (valor ref. USD 500).</p>
+      <p>Herramientas (servidor en Ecuador, IA y Make): USD 20–37 al mes, pagadas directo a los proveedores según consumo.</p>
+    </div>
+    <div class="card">
+      <small>Mes a mes</small><h3>Lo que SHC paga en total</h3>
+      <table class="tbl">
+        <tr><th>Mes</th><th class="r">Implem.</th><th class="r">Soporte</th><th class="r">Herram.</th><th class="r">Total</th></tr>
+        <tr><td>Diciembre</td><td class="r">667</td><td class="r">350</td><td class="r">~30</td><td class="r">~1.050</td></tr>
+        <tr><td>Enero</td><td class="r">667</td><td class="r">350</td><td class="r">~30</td><td class="r">~1.050</td></tr>
+        <tr><td>Febrero</td><td class="r">666</td><td class="r">350</td><td class="r">~30</td><td class="r">~1.050</td></tr>
+        <tr class="tot"><td>Desde marzo</td><td class="r" colspan="4">Etapa 2: USD 2.000, solo si deciden continuar después de revisar los resultados en febrero</td></tr>
+      </table>
+      <p>Valores en USD. En febrero revisamos juntos los resultados, definimos si continúan con la etapa 2 (USD 2.000) y acordamos el soporte desde marzo (referencia: +USD 50 al mes por el agente).</p>
+    </div>
+  </div>
+</section>
+
+<!-- 13 · Cronograma -->
+<section class="slide">
+  <div class="brand">FORTUM <span>CONSULTING</span> <em>en colaboración con</em> AL <span>CONSULTING</span></div>
+  <div class="kicker"><span class="dot"></span>Cronograma</div>
+  <h2>Resultados desde esta semana</h2>
+  <div class="tl">
+    <div><small>Semana del 24 nov</small><h3>Rescate</h3><p>Corrección del prefiltro, recontacto a los ~330 sin CV y análisis de Filtros de Seguridad.</p></div>
+    <div><small>Primera semana de dic</small><h3>Reporte diario</h3><p>El mensaje de las 19 h funcionando y primera reunión semanal. Diana nos pasa los videos de cada página.</p></div>
+    <div><small>Días 1–10 desde el OK</small><h3>Agente</h3><p>Piloto con 10 candidatos (días 1–5), instalación y puesta en operación (días 6–10).</p></div>
+    <div class="last"><small>Febrero</small><h3>Revisión y etapa 2</h3><p>Resultados juntos. Si funciona bien, pasamos a la automatización completa.</p></div>
+  </div>
+</section>
+
+<!-- 14 · Soporte y garantía -->
+<section class="slide">
+  <div class="brand">FORTUM <span>CONSULTING</span> <em>en colaboración con</em> AL <span>CONSULTING</span></div>
+  <div class="kicker"><span class="dot"></span>Soporte, garantía y acompañamiento</div>
+  <h2>El proceso no se detiene</h2>
+  <div class="two">
+    <div>
+      <h3>Soporte</h3>
+      <ul class="ls">
+        <li>Hasta febrero, el soporte sigue en <b>USD 350</b> y cubre el CRM y el agente.</li>
+        <li>Ajustes cada vez que una página del Estado cambie.</li>
+        <li>Monitoreo del servidor y del agente.</li>
+        <li>Reunión semanal de 1 hora con el equipo hasta febrero (incluida en la etapa 1), para revisar los números y ajustar.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Garantía</h3>
+      <ul class="ls">
+        <li><b>Garantía de entrega:</b> el agente se entrega funcionando según los criterios acordados con SHC.</li>
+        <li>Ajustes durante la implementación y la estabilización, incluidos.</li>
+        <li>Revisión diaria del funcionamiento en los primeros 15 días.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 15 · Legal + qué necesitamos -->
+<section class="slide">
+  <div class="brand">FORTUM <span>CONSULTING</span> <em>en colaboración con</em> AL <span>CONSULTING</span></div>
+  <div class="kicker"><span class="dot"></span>Consideraciones legales y arranque</div>
+  <h2>Lo que conviene cuidar</h2>
+  <div class="two">
+    <div>
+      <h3>Consideraciones legales</h3>
+      <ul class="ls">
+        <li>El certificado de antecedentes penales indica que no puede exigirse como requisito laboral (<b>Decreto 1166</b>). Recomendamos confirmarlo con su abogado laboral.</li>
+        <li><b>Protección de Datos Personales:</b> que cada candidato autorice la consulta, por ejemplo en el formulario de postulación.</li>
+        <li>Los criterios y la decisión de contratación los define SHC.</li>
+        <li>Los informes quedan en el Drive de SHC, compartidos solo con su equipo.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Lo que necesitamos de SHC</h3>
+      <ul class="ls">
+        <li><b>Videos de Diana:</b> uno por página, con sus casos especiales, más la página de cédula por nombre.</li>
+        <li><b>Criterios de descarte</b> para Fiscalía, procesos judiciales y antecedentes penales, para que la sugerencia del agente sea más precisa.</li>
+        <li><b>Casos de ejemplo:</b> un candidato con deuda SUPA y uno con proceso judicial.</li>
+        <li><b>Meta del mes:</b> confirmar el número para el reporte diario.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 16 · Siguiente paso -->
+<section class="slide dark">
+  <div class="brand">FORTUM <span>CONSULTING</span> <em>en colaboración con</em> AL <span>CONSULTING</span></div>
+  <div class="kicker"><span class="dot"></span>Siguiente paso</div>
+  <h2>Un OK y arrancamos<br>esta misma semana</h2>
+  <div class="next">
+    <div><b>Hoy</b><span>arranca el rescate, como cortesía</span></div>
+    <div><b>Diciembre</b><span>reporte diario y agente funcionando</span></div>
+    <div><b>Febrero</b><span>revisamos resultados juntos y definimos si continúan con la etapa 2</span></div>
+  </div>
+  <div class="duo-sign"><p class="sign" style="margin:0"><b>Montse</b><br>Fundadora y CEO · Fortum Consulting</p><p class="sign" style="margin:0"><b>Andrés Linares</b><br>AL Consulting</p></div>
+  <p class="sign" style="margin-top:3vh;font-size:1.6vh">Oferta válida por 15 días calendario</p>
+</section>
+
+</div>
+<div id="bar"></div><div id="num"></div><div id="hint">← → para navegar · F pantalla completa</div>
+<script src="deck.js"></script>
+<script>
+/* fondo oscuro de página cuando la slide activa es .dark */
+(function(){
+  const sync=()=>{const on=document.querySelector('.slide.on');document.body.classList.toggle('darkbg',!!(on&&on.classList.contains('dark')))};
+  new MutationObserver(sync).observe(document.getElementById('deck'),{subtree:true,attributes:true,attributeFilter:['class']});
+  sync();
+})();
+</script>
+</body>
+</html>
